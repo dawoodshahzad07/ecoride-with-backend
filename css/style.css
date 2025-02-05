@@ -1,0 +1,1013 @@
+/* Style global */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Barre de navigation */
+.navbar {
+    background-color: #28a745;
+    padding: 15px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link.active,
+.navbar-nav .nav-item .nav-link:hover {
+    background-color: #218838;
+    color: white;
+}
+
+/* Section Hero */
+.hero {
+    text-align: center;
+    background-color: #28a745;
+    color: white;
+    padding: 80px 20px;
+    border-bottom: 5px solid #ffffff;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.hero img {
+    max-width: 80%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hero .btn {
+    background-color: white;
+    color: #28a745;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border: 2px solid white;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.hero .btn:hover {
+    background-color: #d4edda;
+    color: #218838;
+    border-color: #218838;
+}
+
+/* Section Pourquoi choisir EcoRide ? */
+.why-choose-us {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.why-choose-us h2 {
+    font-size: 2.5rem;
+    color: #28a745;
+    margin-bottom: 40px;
+}
+
+.why-choose-us .row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.why-choose-us .col-md-4 {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.why-choose-us .col-md-4:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.why-choose-us img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.why-choose-us img:hover {
+    transform: scale(1.05);
+}
+/* Section Témoignages */
+.testimonials {
+    background-color: #f4f4f9;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.testimonials h2 {
+    font-size: 2.5rem;
+    color: #28a745;
+    margin-bottom: 40px;
+}
+
+.testimonial-carousel {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.testimonial {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 30px;
+}
+
+.testimonial .author {
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .testimonial-carousel {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .testimonial {
+        width: 90%;
+    }
+}
+
+/* Section Footer */
+footer {
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+footer a {
+    color: #28a745;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero {
+        padding: 40px 10px;
+    }
+
+    .why-choose-us .row {
+        flex-direction: column;
+    }
+
+    .why-choose-us .col-md-4 {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .connexion-section, .register-section, .contact-form {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .contact-info {
+        font-size: 1rem;
+    }
+}
+
+/* Section Connexion et Créer un Compte */
+.connexion-section, .register-section {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.connexion-section h2, .register-section h2 {
+    font-size: 2rem;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #28a745;
+    outline: none;
+}
+
+.form-check {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.form-check-label {
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    display: block;
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.text-center p {
+    font-size: 0.9rem;
+}
+
+/* Section Contact */
+.contact-section {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.contact-section h2 {
+    font-size: 2.5rem;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.contact-section p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-form .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.contact-form .form-group label {
+    font-weight: bold;
+}
+
+.contact-form .form-group input,
+.contact-form .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.contact-form .form-group input:focus,
+.contact-form .form-group textarea:focus {
+    border-color: #28a745;
+    outline: none;
+}
+
+.contact-form button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #218838;
+}
+
+.contact-info {
+    margin-top: 40px;
+    text-align: left;
+    font-size: 1.1rem;
+}
+
+.contact-info a {
+    color: #28a745;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-info a:hover {
+    color: #218838;
+}
+
+.map-container {
+    margin-top: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.map-container iframe {
+    width: 100%;
+    border: 0;
+    height: 300px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero {
+        padding: 40px 10px;
+    }
+
+    .why-choose-us .row {
+        flex-direction: column;
+    }
+
+    .why-choose-us .col-md-4 {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .connexion-section, .register-section, .contact-form {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .contact-info {
+        font-size: 1rem;
+    }
+}
+
+
+/* Style général pour le corps */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Barre de navigation */
+.navbar {
+    background-color: #28a745;
+    padding: 15px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link.active,
+.navbar-nav .nav-item .nav-link:hover {
+    background-color: #218838;
+    color: white;
+}
+
+
+
+
+/* Style général */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f8f2;  /* Beige clair, couleur douce, apaisante */
+    color: #3e4c59; /* Gris foncé pour une bonne lisibilité */
+    line-height: 1.6;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Barre de navigation */
+.navbar {
+    background-color: #4c9a2a;  /* Vert forêt */
+    padding: 15px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link.active,
+.navbar-nav .nav-item .nav-link:hover {
+    background-color: #388e3c; /* Couleur plus foncée du vert */
+    color: white;
+}
+
+/* Formulaire de recherche */
+.search-section {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #eaf4e9;  /* Beige doux, naturel */
+    border-bottom: 3px solid #4c9a2a;
+}
+
+.search-section h1 {
+    font-size: 3rem;
+    color: #4c9a2a;  /* Vert forêt */
+    margin-bottom: 20px;
+}
+
+.search-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.search-form .form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.search-form .form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #3e4c59;
+}
+
+.search-form button {
+    background-color: #4c9a2a;  /* Vert forêt */
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: #388e3c;  /* Vert plus foncé */
+}
+
+/* Section Résultats */
+.results-section {
+    padding: 60px 20px;
+    background-color: #ffffff;  /* Blanc pur pour un contraste */
+}
+
+.results-section h2 {
+    font-size: 2.5rem;
+    color: #4c9a2a;  /* Vert forêt */
+    margin-bottom: 30px;
+}
+
+#results-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.covoiturage {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+}
+
+.covoiturage:hover {
+    transform: translateY(-10px);
+}
+
+.covoiturage img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-right: 25px;
+    border: 3px solid #4c9a2a; /* Bordure verte pour l'image du conducteur */
+}
+
+.covoiturage-info {
+    flex-grow: 1;
+}
+
+.covoiturage-info h3 {
+    color: #4c9a2a;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.covoiturage-info p {
+    margin: 8px 0;
+    font-size: 1rem;
+}
+
+.covoiturage-info .price {
+    font-weight: bold;
+    color: #388e3c;
+}
+
+.ecologique {
+    color: #4caf50; /* Vert vif pour les covoiturages écologiques */
+    font-weight: bold;
+}
+
+.not-ecologique {
+    color: #f44336; /* Rouge pour les covoiturages non écologiques */
+    font-weight: bold;
+}
+
+.details-btn {
+    background-color: #00796b;  /* Vert émeraude */
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.details-btn:hover {
+    background-color: #004d40;  /* Vert plus foncé */
+}
+
+/* Message Aucun Résultat */
+.no-results {
+    color: #888;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Page de détails */
+.details-section {
+    padding: 60px 20px;
+    background-color: #f5f8f2;  /* Beige clair pour la page de détails */
+}
+
+.details-section h2 {
+    font-size: 2.5rem;
+    color: #4c9a2a;
+    margin-bottom: 30px;
+}
+
+.covoiturage-detail {
+    background-color: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.covoiturage-detail img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #4c9a2a;
+    align-self: center;
+}
+
+.covoiturage-detail h3 {
+    color: #4c9a2a;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.covoiturage-detail p {
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
+
+.covoiturage-detail ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.covoiturage-detail ul li {
+    font-size: 1rem;
+    margin: 8px 0;
+}
+
+/* Section Avis des utilisateurs */
+.covoiturage-detail h4 {
+    font-size: 1.6rem;
+    color: #4c9a2a; /* Vert forêt pour les titres */
+    margin-bottom: 20px;
+}
+
+.covoiturage-detail ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.covoiturage-detail ul li {
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f7f3; /* Arrière-plan doux pour les avis */
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.covoiturage-detail ul li:hover {
+    transform: translateY(-5px); /* Effet au survol */
+}
+
+.covoiturage-detail ul li .user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.covoiturage-detail ul li .user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.covoiturage-detail ul li .user-info .username {
+    font-weight: bold;
+    color: #4c9a2a; /* Vert pour le nom de l'utilisateur */
+    font-size: 1.1rem;
+}
+
+.covoiturage-detail ul li .user-info .rating {
+    display: flex;
+    gap: 2px;
+    margin-top: 5px;
+}
+
+/* Style des étoiles */
+.covoiturage-detail ul li .user-info .rating span {
+    color: #fbc02d; /* Jaune pour les étoiles */
+    font-size: 1.2rem;
+}
+
+.covoiturage-detail ul li .comment {
+    font-size: 1rem;
+    color: #3e4c59; /* Gris foncé pour le texte du commentaire */
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+/* Bouton de chargement des avis */
+.load-more-btn {
+    display: block;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    width: 200px;
+    margin: 30px auto;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.load-more-btn:hover {
+    background-color: #004d40; /* Couleur foncée au survol */
+}
+
+/* Footer */
+footer {
+    background-color: #4c9a2a;  /* Vert forêt */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    margin: 10px 0;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #222;
+    color: white;
+}
+
+footer a {
+    color: #28a745;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .covoiturages-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .covoiturage-item {
+        width: 90%;
+    }
+}
+
+
+
+
+/* Style général */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f8f2;  /* Beige clair, apaisant */
+    color: #3e4c59;  /* Gris foncé pour une bonne lisibilité */
+    line-height: 1.6;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Barre de navigation */
+.navbar {
+    background-color: #4c9a2a;  /* Vert forêt */
+    padding: 15px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link.active,
+.navbar-nav .nav-item .nav-link:hover {
+    background-color: #388e3c; /* Couleur plus foncée du vert */
+    color: white;
+}
+
+/* Section Mentions légales */
+.mentions-legales-section {
+    padding: 40px 20px;
+    background-color: #ffffff;  /* Fond blanc pour un contraste net */
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #4c9a2a;  /* Vert forêt */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #4c9a2a;
+    margin-top: 40px;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+strong {
+    font-weight: bold;
+}
+
+/* Liens */
+a {
+    color: #00796b; /* Vert émeraude */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background-color: #4c9a2a;  /* Vert forêt */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    margin: 10px 0;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Style des sections de texte */
+section p {
+    margin-bottom: 20px;
+}
+
+section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+section ul li {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* Ajouter un petit effet de survol aux paragraphes */
+section p:hover {
+    color: #388e3c;  /* Changer la couleur du texte au survol */
+}
+
+/* Ajouter un peu de marge aux titres */
+section h2, section h3 {
+    margin-bottom: 10px;
+}
