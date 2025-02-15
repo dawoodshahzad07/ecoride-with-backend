@@ -34,6 +34,16 @@ include_once('db/conn.php');
                     <label for="date">Date :</label>
                     <input type="date" id="date" name="date" class="form-control" required>
                 </div>
+                <div class="form-group">
+                    <label for="date">Nombre d'étoiles du conducteur:</label>
+                    <select name="rating" class="form-control">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
                 <button type="submit" name="search" class="btn-primary">Rechercher</button>
             </form>
         </div>
@@ -48,18 +58,19 @@ include_once('db/conn.php');
                 if (isset($_GET['search'])) {
                     $departure = $_GET['departure'];
                     $destination = $_GET['destination'];
+                    $rating = $_GET['rating'];
                     $date = $_GET['date'];
 
                     $query = "
                         SELECT covoiturages.*, utilisateurs.nom AS driver_name, utilisateurs.photo AS driver_photo, utilisateurs.email AS driver_email, utilisateurs.note AS driver_rating
                         FROM covoiturages
                         LEFT JOIN utilisateurs ON utilisateurs.id = covoiturages.chauffeur_id
-                        WHERE covoiturages.depart = ? AND covoiturages.destination = ? AND covoiturages.date = ? AND covoiturages.statut = ?
+                        WHERE covoiturages.depart = ? AND covoiturages.destination = ? AND covoiturages.date = ? AND covoiturages.statut = ? AND utilisateurs.note = ?
                     ";
 
                     $status = 'active';
                     $stmt = $conn->prepare($query);
-                    $stmt->bind_param("ssss", $departure, $destination, $date, $status);
+                    $stmt->bind_param("sssss", $departure, $destination, $date, $status, $rating);
                     $stmt->execute();
                     $result = $stmt->get_result();
 
@@ -74,10 +85,19 @@ include_once('db/conn.php');
 
                                 <p>Départ : <?php echo htmlspecialchars($res['heure_depart']); ?> - Arrivée : <?php echo htmlspecialchars($res['heure_arrivee']); ?></p>
 
-                                <p class="<?php echo $res['ecologique'] ? " ecologique" : "not-ecologique"; ?>">
-                                    <?php echo $res['ecologique'] ?  "Voyage écologique ♻️" : "Non écologique 🚗"; ?>
-                                </p>
-                                <a href="details.php?id=<?php echo htmlspecialchars($res['id']); ?>" class=" details-btn">Détails</a> <!-- Lien vers la page de détails -->
+                                <?php if ($res['ecologique'] == 'Electric' || $res['ecologique'] == 'Hybrid') { ?>
+
+                                    <p class="<?php echo " ecologique"; ?>">
+                                    <?php echo "Voyage écologique ♻️";
+                                } else { ?>
+                                    </p>
+                                    <p class="<?php echo "not-ecologique"; ?>">
+                                    <?php echo "Non écologique 🚗";
+                                }
+                                    ?>
+                                    </p>
+
+                                    <a href="details.php?id=<?php echo htmlspecialchars($res['id']); ?>" class=" details-btn">Détails</a> <!-- Lien vers la page de détails -->
 
 
 

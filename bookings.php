@@ -65,9 +65,17 @@ include_once('db/conn.php');
                 </h3>
                 <p>Départ : <?php echo htmlspecialchars($res['heure_depart']); ?> - Arrivée : <?php echo htmlspecialchars($res['heure_arrivee']); ?></p>
 
-                <p class="<?php echo $res['ecologique'] ? "ecologique" : "non-ecologique"; ?>">
-                  <?php echo $res['ecologique'] ?  "Voyage écologique ♻️" : "Non écologique 🚗"; ?>
-                </p>
+                <?php if ($res['ecologique'] == 'Electric' || $res['ecologique'] == 'Hybrid') { ?>
+
+                  <p class="<?php echo " ecologique"; ?>">
+                  <?php echo "Voyage écologique ♻️";
+                } else { ?>
+                  </p>
+                  <p class="<?php echo "not-ecologique"; ?>">
+                  <?php echo "Non écologique 🚗";
+                }
+                  ?>
+                  </p>
               </div>
 
               <form action="db/carpool.php" method="post">

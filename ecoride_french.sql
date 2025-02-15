@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2025 at 02:15 PM
+-- Generation Time: Feb 13, 2025 at 11:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,7 +33,8 @@ CREATE TABLE `avis` (
   `chauffeur_id` int(11) NOT NULL,
   `note` int(11) NOT NULL,
   `commentaire` text NOT NULL,
-  `cree_le` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `cree_le` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `statut` varchar(40) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -52,12 +53,14 @@ CREATE TABLE `covoiturages` (
   `chauffeur_id` int(11) NOT NULL,
   `places` int(11) NOT NULL,
   `prix` decimal(10,2) NOT NULL,
-  `ecologique` tinyint(1) NOT NULL,
+  `ecologique` varchar(100) DEFAULT NULL,
   `animaux_autorises` tinyint(1) NOT NULL,
   `fumeur_autorise` tinyint(1) NOT NULL,
   `modele_voiture` varchar(200) DEFAULT NULL,
   `marque_voiture` varchar(100) DEFAULT NULL,
   `energie_voiture` varchar(200) DEFAULT NULL,
+  `numero_immatriculation` varchar(200) DEFAULT NULL,
+  `date_immatriculation` varchar(200) DEFAULT NULL,
   `statut` varchar(40) NOT NULL DEFAULT 'active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -93,8 +96,16 @@ CREATE TABLE `utilisateurs` (
   `mot_de_passe` varchar(100) DEFAULT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `type` varchar(255) NOT NULL,
-  `note` decimal(10,1) DEFAULT NULL
+  `note` decimal(10,1) DEFAULT NULL,
+  `statut` varchar(40) NOT NULL DEFAULT 'active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `utilisateurs`
+--
+
+INSERT INTO `utilisateurs` (`id`, `nom`, `credit`, `email`, `mot_de_passe`, `photo`, `type`, `note`, `statut`) VALUES
+(1, 'admin', 20.00, 'admin@gmail.com', '$2y$10$6xNx7pYNK6XAFHTOFO1ANuTJAtYGhJPZZ8NrP9WiA.KPbChqDuuIm', 'profile_67aaba4c06bd58.60332181.png', 'admin', 0.0, 'active');
 
 -- --------------------------------------------------------
 
@@ -169,7 +180,7 @@ ALTER TABLE `reservations`
 -- AUTO_INCREMENT for table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `voitures`

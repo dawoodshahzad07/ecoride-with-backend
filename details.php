@@ -53,7 +53,14 @@ include_once('db/conn.php');
 
                         <p><strong>Départ :</strong> <?php echo htmlspecialchars($res['depart']); ?> à <?php echo htmlspecialchars($res['heure_depart']); ?></p>
                         <p><strong>Arrivée :</strong> <?php echo htmlspecialchars($res['destination']); ?> à <?php echo htmlspecialchars($res['heure_arrivee']); ?></p>
-                        <p><strong>Écologique :</strong> <?php echo $res['ecologique'] ? "Oui" : "Non"; ?></p>
+                        <p><strong>Écologique :</strong>
+                            <?php if ($res['ecologique'] == 'Electric' || $res['ecologique'] == 'Hybrid') {
+
+                                echo "Voyage écologique ♻️";
+                            } else {
+                                echo "Non écologique 🚗";
+                            } ?>
+                        </p>
                         <p><strong>Véhicule :</strong> <?php echo htmlspecialchars($res['modele_voiture']); ?> (<?php echo htmlspecialchars($res['marque_voiture']); ?>) - <?php echo htmlspecialchars($res['energie_voiture']); ?></p>
                         <p><strong>Préférences du conducteur :</strong>
                             Fumeurs : <?php echo $res['animaux_autorises'] ? "Oui" : "Non"; ?>,
@@ -62,12 +69,24 @@ include_once('db/conn.php');
                         <h4>Avis des utilisateurs :</h4>
                         <?php
 
-                        $reviews = " SELECT avis.*, utilisateurs.nom FROM avis LEFT JOIN utilisateurs ON utilisateurs.id = avis.client_id WHERE chauffeur_id = ?";
+                        $status = 'accepted';
+                        $chauffeur_id = isset($res['chauffeur_id']) ? intval($res['chauffeur_id']) : 0;
+
+                        $reviews = "SELECT avis.*, utilisateurs.nom 
+            FROM avis 
+            LEFT JOIN utilisateurs ON utilisateurs.id = avis.client_id 
+            WHERE chauffeur_id = ? AND avis.statut = ?";
 
                         $stmt_reviews = $conn->prepare($reviews);
-                        $stmt_reviews->bind_param("s", $res['chauffeur_id']);
-                        $stmt_reviews->execute();
-                        $result_reviews = $stmt_reviews->get_result();
+
+                        if ($stmt_reviews) {
+                            $stmt_reviews->bind_param("is", $chauffeur_id, $status); // Corrected to "is"
+                            $stmt_reviews->execute();
+                            $result_reviews = $stmt_reviews->get_result();
+                        } else {
+                            echo "Error preparing statement: " . $conn->error;
+                        }
+
 
                         while ($res_reviews = $result_reviews->fetch_assoc()) {
                         ?>

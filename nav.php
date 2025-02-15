@@ -12,7 +12,25 @@ $current_page = basename($_SERVER['PHP_SELF']); // Get current page name
 
       <?php
       $_SESSION['user_id'] = $_SESSION['user_id'] ?? null;
-      if ($_SESSION['user_id'] && $_SESSION['type'] == 'driver') { ?>
+      if ($_SESSION['user_id'] && $_SESSION['type'] == 'admin') { ?>
+        <li class="nav-item">
+          <a class="nav-link <?= ($current_page == 'carpools.php') ? 'active' : '' ?>" href="carpools.php">covoiturages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <?= ($current_page == 'employees.php') ? 'active' : '' ?>" href="employees.php">employees</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="db/auth.php?logout">Logout</a>
+        </li>
+      <?php } elseif ($_SESSION['user_id'] && $_SESSION['type'] == 'employee') { ?>
+        <li class="nav-item">
+          <a class="nav-link <?= ($current_page == 'rating.php') ? 'active' : '' ?>" href="rating.php">note</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="db/auth.php?logout">Logout</a>
+        </li>
+
+      <?php } elseif ($_SESSION['user_id'] && $_SESSION['type'] == 'driver') { ?>
         <li class="nav-item">
           <a class="nav-link <?= ($current_page == 'addCarpool.php') ? 'active' : '' ?>" href="addCarpool.php">Ajouter covoiturage</a>
         </li>

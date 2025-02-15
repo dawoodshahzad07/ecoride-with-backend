@@ -88,6 +88,8 @@ if ($_SESSION['type'] != 'driver') {
             <th>Modèle de voiture</th>
             <th>Marque de voiture</th>
             <th>Énergie de voiture</th>
+            <th>numéro d'immatriculation</th>
+            <th>date d'immatriculation</th>
             <th>Action</th>
 
           </tr>
@@ -109,12 +111,14 @@ if ($_SESSION['type'] != 'driver') {
               <td><?php echo htmlspecialchars($res['heure_depart']); ?></td>
               <td><?php echo htmlspecialchars($res['heure_arrivee']); ?></td>
               <td><?php echo htmlspecialchars($res['places']); ?></td>
-              <td><?php echo $res['ecologique'] ? 'Oui' : 'Non'; ?></td>
+              <td><?php echo htmlspecialchars($res['ecologique']); ?></td>
               <td><?php echo $res['animaux_autorises'] ? 'Oui' : 'Non'; ?></td>
               <td><?php echo $res['fumeur_autorise'] ? 'Oui' : 'Non'; ?></td>
               <td><?php echo htmlspecialchars($res['modele_voiture']); ?></td>
               <td><?php echo htmlspecialchars($res['marque_voiture']); ?></td>
               <td><?php echo htmlspecialchars($res['energie_voiture']); ?></td>
+              <td><?php echo htmlspecialchars($res['numero_immatriculation']); ?></td>
+              <td><?php echo htmlspecialchars($res['date_immatriculation']); ?></td>
               <?php if ($res['statut'] == 'cancel') { ?>
                 <td>Annulé</td>
               <?php } else { ?>
@@ -167,14 +171,23 @@ if ($_SESSION['type'] != 'driver') {
           <input type="text" name="car_energy" class="form-control" required>
         </div>
         <div class="form-group">
+          <label>Numéro d'immatriculation :</label>
+          <input type="text" name="registration_number" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Date d'immatriculation :</label>
+          <input type="text" name="registration_date" class="form-control" required>
+        </div>
+        <div class="form-group">
           <label for="date">Nombre de sièges :</label>
           <input type="number" name="seats" class="form-control" required>
         </div>
         <div class="form-group">
           <label for="date">Écologique :</label>
           <select name="ecological" class="form-control" id="">
-            <option value="1">Oui</option>
-            <option value="0">Non</option>
+            <option value="Electric">Electric</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="Diesel">Diesel</option>
           </select>
         </div>
         <div class="form-group">
