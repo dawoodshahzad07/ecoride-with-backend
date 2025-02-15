@@ -2,6 +2,7 @@
 include_once('conn.php');
 include_once('../config.php');
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_driver_info'])) {
   // Retrieve form data
   $departure = trim($_POST['departure']);
