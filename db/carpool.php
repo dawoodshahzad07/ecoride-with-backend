@@ -2,6 +2,7 @@
 include_once('conn.php');
 include_once('../config.php');
 
+
 if (isset($_SESSION['user_id'])) {
   $driver_id = $_SESSION['user_id'];
   $query = "SELECT * FROM covoiturages WHERE chauffeur_id = ?";
