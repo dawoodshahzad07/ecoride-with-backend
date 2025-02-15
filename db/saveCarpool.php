@@ -12,9 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_driver_info'])) 
   $car_model = trim($_POST['car_model']);
   $car_brand = trim($_POST['car_brand']);
   $car_energy = trim($_POST['car_energy']);
+  $registration_number = trim($_POST['registration_number']);
+  $registration_date = trim($_POST['registration_date']);
   $seats = ($_POST['seats']);
   $price = 0;
-  $ecological = intval($_POST['ecological']);
+  $ecological = trim($_POST['ecological']);
   $pets_allowed = intval($_POST['pets_allowed']);
   $smoking_allowed = intval($_POST['smoking_allowed']);
 
@@ -35,10 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_driver_info'])) 
   $car_model = mysqli_real_escape_string($conn, $car_model);
   $car_brand = mysqli_real_escape_string($conn, $car_brand);
   $car_energy = mysqli_real_escape_string($conn, $car_energy);
-
+  $registration_number = mysqli_real_escape_string($conn, $registration_number);
+  $registration_date = mysqli_real_escape_string($conn, $registration_date);
+  $ecological = mysqli_real_escape_string($conn, $ecological);
   // Construct the query
   $query = "INSERT INTO covoiturages 
-               (depart, destination, chauffeur_id, date, heure_depart, heure_arrivee, modele_voiture, marque_voiture, energie_voiture, places, prix, ecologique, animaux_autorises, fumeur_autorise)
+               (depart, destination, chauffeur_id, date, heure_depart, heure_arrivee, modele_voiture, marque_voiture, energie_voiture, numero_immatriculation, date_immatriculation, ecologique, places, prix, animaux_autorises, fumeur_autorise)
  VALUES (
               '$departure', 
               '$destination', 
@@ -49,9 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_driver_info'])) 
               '$car_model', 
               '$car_brand', 
               '$car_energy', 
+              '$registration_number', 
+              '$registration_date', 
+              '$ecological', 
               $seats, 
               $price, 
-              $ecological, 
               $pets_allowed, 
               $smoking_allowed
             )";

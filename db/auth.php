@@ -95,6 +95,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: ../covoiturages.php");
           } elseif ($type === 'driver') {
             header("Location: ../addCarpool.php");
+          } elseif ($type === 'admin') {
+            header("Location: ../carpools.php");
+          } elseif ($type === 'employee') {
+            header("Location: ../rating.php");
           } else {
             header("Location: ../index.php");
           }

@@ -78,28 +78,7 @@ if (isset($_POST['submit_review'])) {
     mysqli_stmt_bind_param($stmt, "ssss", $cus_id, $driver_id, $rating, $review);
 
     if (mysqli_stmt_execute($stmt)) {
-      $updateRatingQuery = "
-              UPDATE utilisateurs 
-              SET note = (
-                  SELECT AVG(note) 
-                  FROM avis 
-                  WHERE chauffeur_id = ?
-              )
-              WHERE id = ?
-          ";
-      $updateStmt = mysqli_prepare($conn, $updateRatingQuery);
 
-      if ($updateStmt) {
-        mysqli_stmt_bind_param($updateStmt, "ss", $driver_id, $driver_id);
-
-        if (!mysqli_stmt_execute($updateStmt)) {
-          echo "Error updating driver's rating: " . mysqli_stmt_error($updateStmt);
-        }
-
-        mysqli_stmt_close($updateStmt);
-      } else {
-        echo "Error preparing update query: " . mysqli_error($conn);
-      }
 
       header('Location: ../index.php');
       exit;
