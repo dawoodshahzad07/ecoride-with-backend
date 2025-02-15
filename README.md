@@ -16,3 +16,17 @@ if he choose customer type then he will be redirected to "search carpool" where 
 after booking he will be redirected to a booking page where he can write review and rate the driver. also he can cancel the booking. upon cancelling the credit will be added back to his account and seats back to carpool.
 
 if driver cancel the carpool, credit goes back to all the passengers and email is sent.
+
+admin account: 
+email: admin@gmail.com
+password: admin
+Admin functionalities:
+a. admin can view all users
+b. admin can suspend any user he wants
+c. admin can add employee
+
+
+employee functionalities:
+employee will see the reviews made by customer
+employee can accept or reject the review
+once accepted the rating will be added to driver and the review will be visible on details page
