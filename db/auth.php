@@ -4,6 +4,7 @@ $username = "root";
 $password = "";
 $dbname = "ecoride_french";
 
+
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 if (!$conn) {
