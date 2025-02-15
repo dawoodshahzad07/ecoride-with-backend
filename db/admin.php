@@ -2,6 +2,7 @@
 include_once('conn.php');
 include_once('../config.php');
 
+
 if (isset($_POST['save_emp'])) {
   $name = $_POST['name'];
   $email = $_POST['email'];
