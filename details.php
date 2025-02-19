@@ -1,5 +1,8 @@
 <?php
 include_once('db/conn.php');
+if ($_SESSION['type'] != 'customer') {
+    header("Location: connexion.php");
+  }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
