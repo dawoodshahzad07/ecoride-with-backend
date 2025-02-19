@@ -37,6 +37,7 @@ include_once('db/conn.php');
                 <div class="form-group">
                     <label for="date">Nombre d'étoiles du conducteur:</label>
                     <select name="rating" class="form-control">
+                        <option value="">Select</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -58,21 +59,30 @@ include_once('db/conn.php');
                 if (isset($_GET['search'])) {
                     $departure = $_GET['departure'];
                     $destination = $_GET['destination'];
-                    $rating = $_GET['rating'];
                     $date = $_GET['date'];
+                    $status = 'active';
 
                     $query = "
-                        SELECT covoiturages.*, utilisateurs.nom AS driver_name, utilisateurs.photo AS driver_photo, utilisateurs.email AS driver_email, utilisateurs.note AS driver_rating
+                        SELECT covoiturages.*, utilisateurs.nom AS driver_name, utilisateurs.photo AS driver_photo, 
+                               utilisateurs.email AS driver_email, utilisateurs.note AS driver_rating
                         FROM covoiturages
                         LEFT JOIN utilisateurs ON utilisateurs.id = covoiturages.chauffeur_id
-                        WHERE covoiturages.depart = ? AND covoiturages.destination = ? AND covoiturages.date = ? AND covoiturages.statut = ? AND utilisateurs.note = ?
-                    ";
+                        WHERE covoiturages.depart = ? AND covoiturages.destination = ? 
+                        AND covoiturages.date = ? AND covoiturages.statut = ?";
 
-                    $status = 'active';
+                    $params = ["ssss", $departure, $destination, $date, $status];
+
+                    if (!empty($_GET['rating'])) {
+                        $query .= " AND utilisateurs.note = ?";
+                        $params[0] .= "s";
+                        $params[] = $_GET['rating'];
+                    }
+
                     $stmt = $conn->prepare($query);
-                    $stmt->bind_param("sssss", $departure, $destination, $date, $status, $rating);
+                    $stmt->bind_param(...$params);
                     $stmt->execute();
                     $result = $stmt->get_result();
+
 
                     while ($res = $result->fetch_assoc()) {
                 ?>
