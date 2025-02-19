@@ -1,5 +1,6 @@
-Projet EcoRide
-1:Créez une nouvelle base de données avec le nom "ecoride20".
+Projet EcoRide.
+
+1:Créez une nouvelle base de données avec le nom "ecoride_french".
 
 2:Ajoutez les identifiants dans "auth.php" et "conn.php".
 
