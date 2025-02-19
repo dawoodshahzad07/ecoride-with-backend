@@ -31,6 +31,7 @@
                     <input type="checkbox" id="remember-me" class="form-check-input">
                     <label for="remember-me" class="form-check-label">Se souvenir de moi</label>
                 </div>
+                <input type="hidden" name="previous_url" id="previous_url" value="">
                 <button type="submit" name="login" class="btn-primary">Se connecter</button>
                 <p id="error-message" class="error-message"></p>
             </form>
@@ -50,6 +51,10 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+        // JavaScript to capture the referrer URL (previous page)
+        document.getElementById('previous_url').value = document.referrer || '../index.php';
+    </script>
 </body>
 
 </html>
