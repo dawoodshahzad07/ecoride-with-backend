@@ -4,7 +4,6 @@ $username = "root";
 $password = "";
 $dbname = "ecoride_french";
 
-
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 if (!$conn) {
@@ -91,9 +90,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $_SESSION['name'] = $name;
           $_SESSION['type'] = $type;
 
+          $redirect_url = isset($_POST['previous_url']) ? $_POST['previous_url'] : '../index.php'; 
+
+
           echo "Login successful! Redirecting...";
           if ($type === 'customer') {
-            header("Location: ../covoiturages.php");
+            header("Location: $redirect_url");;
           } elseif ($type === 'driver') {
             header("Location: ../addCarpool.php");
           } elseif ($type === 'admin') {
