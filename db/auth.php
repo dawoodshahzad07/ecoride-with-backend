@@ -24,30 +24,65 @@ try {
         throw new Exception("Connection failed: " . mysqli_connect_error());
     }
 
-    // Get username and password from POST request
-    $user = $_POST['username'];
-    $pass = $_POST['password'];
+    session_start();
+    include_once('../config.php');
 
-    // Use prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
-    $stmt->bind_param("ss", $user, $pass);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_POST['register'])) {
+            // ... your existing registration code ...
+        } elseif (isset($_POST['login'])) {
+            $email = trim($_POST['email']);
+            $password = trim($_POST['password']);
 
-    if ($result->num_rows > 0) {
-        // Start session and store user data
-        session_start();
-        $user_data = $result->fetch_assoc();
-        $_SESSION['user_id'] = $user_data['id'];
-        $_SESSION['username'] = $user_data['username'];
-        
-        // Redirect to dashboard or home page
+            if (empty($email) || empty($password)) {
+                die("Email and password are required.");
+            }
+
+            $query = "SELECT id, nom, mot_de_passe, type FROM utilisateurs WHERE email = ?";
+            $stmt = $conn->prepare($query);
+
+            if ($stmt) {
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
+                $stmt->bind_result($id, $name, $hashed_password, $type);
+
+                if ($stmt->fetch()) {
+                    if (password_verify($password, $hashed_password)) {
+                        $_SESSION['user_id'] = $id;
+                        $_SESSION['name'] = $name;
+                        $_SESSION['type'] = $type;
+
+                        $redirect_url = isset($_POST['previous_url']) ? $_POST['previous_url'] : '../index.php';
+
+                        if ($type === 'customer') {
+                            header("Location: $redirect_url");
+                        } elseif ($type === 'driver') {
+                            header("Location: ../addCarpool.php");
+                        } elseif ($type === 'admin') {
+                            header("Location: ../carpools.php");
+                        } elseif ($type === 'employee') {
+                            header("Location: ../rating.php");
+                        } else {
+                            header("Location: ../index.php");
+                        }
+                        exit;
+                    } else {
+                        header("Location: ../connexion.php?error=invalid");
+                        exit;
+                    }
+                } else {
+                    header("Location: ../connexion.php?error=notfound");
+                    exit;
+                }
+                $stmt->close();
+            }
+        }
+    }
+
+    if (isset($_GET['logout'])) {
+        session_destroy();
         header("Location: ../index.php");
-        exit();
-    } else {
-        // Invalid credentials
-        header("Location: ../login.php?error=1");
-        exit();
+        exit;
     }
 
 } catch (Exception $e) {
