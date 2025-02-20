@@ -2,23 +2,23 @@
 // Add at the top of the file for debugging
 error_log("Attempting database connection...");
 
-// Parse Railway's MySQL URL
-$mysql_url = getenv('MYSQL_URL');  // This should be provided by Railway
-if (!$mysql_url) {
-    die("MYSQL_URL environment variable is not set");
+// Database connection with Railway environment variables
+$servername = getenv('MYSQLHOST');  // Get the Railway internal host
+if (!$servername) {
+    error_log("MYSQLHOST not set, falling back to localhost");
+    $servername = 'localhost';
 }
 
-// Parse the URL to get connection details
-$url = parse_url($mysql_url);
-$servername = $url['host'];
-$username = $url['user'];
-$password = $url['pass'];
-$dbname = ltrim($url['path'], '/');
-$port = $url['port'] ?? 3306;
+$username = getenv('MYSQLUSER') ?: 'root';
+$password = getenv('MYSQLPASSWORD') ?: '';
+$dbname = getenv('MYSQLDATABASE') ?: 'ecoride_french';
+$port = getenv('MYSQLPORT') ?: '3306';
 
+error_log("Connection details:");
 error_log("Host: " . $servername);
 error_log("Database: " . $dbname);
 error_log("Port: " . $port);
+error_log("User: " . $username);
 
 // Add error reporting for debugging
 error_reporting(E_ALL);
