@@ -1,24 +1,26 @@
 <?php
 // Database connection
-$servername = "localhost"; // Default, will be overridden by env var if set
-$username = "root";        // Default, will be overridden by env var if set
-$password = "";            // Default, will be overridden by env var if set
-$dbname = "ecoridebackend"; // Default, will be overridden by env var if set
+$servername = getenv('MYSQL_HOST') ?: 'localhost';
+$username = getenv('MYSQL_USER') ?: 'root';
+$password = getenv('MYSQL_PASSWORD') ?: '';
+$dbname = getenv('MYSQL_DATABASE') ?: 'ecoridebackend';
+$port = getenv('MYSQL_PORT') ?: '3306';
 
-// Use environment variables if available (for Railway)
-$servername = $_ENV['MYSQL_HOST'] ?? $servername;
-$username = $_ENV['MYSQL_USER'] ?? $username;
-$password = $_ENV['MYSQL_PASSWORD'] ?? $password;
-$dbname = $_ENV['MYSQL_DATABASE'] ?? $dbname;
-$port = $_ENV['MYSQL_PORT'] ?? 3306;
+// Add error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// Construct connection string with port (important for TCP/IP)
-$conn = mysqli_connect($servername, $username, $password, $dbname, $port);
+try {
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname, $port);
 
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+    // Check connection
+    if (!$conn) {
+        throw new Exception("Connection failed: " . mysqli_connect_error());
+    }
+
+    // Start session
+    session_start();
+} catch (Exception $e) {
+    die("Connection error: " . $e->getMessage());
 }
-
-// Start session
-session_start();
