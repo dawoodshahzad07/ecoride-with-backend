@@ -1,29 +1,28 @@
 <?php
 // Add at the top of the file for debugging
-error_log("Host: " . getenv('MYSQLHOST'));
-error_log("Database: " . getenv('MYSQLDATABASE'));
-error_log("Port: " . getenv('MYSQLPORT'));
-// Don't log username/password for security
+error_log("Attempting database connection...");
 
-// Database connection - using Railway's variable names
-$servername = getenv('MYSQLHOST');
-$username = getenv('MYSQLUSER');
-$password = getenv('MYSQLPASSWORD');
-$dbname = getenv('MYSQLDATABASE');
-$port = getenv('MYSQLPORT');
+// Parse Railway's MySQL URL
+$mysql_url = getenv('MYSQL_URL');  // This should be provided by Railway
+if (!$mysql_url) {
+    die("MYSQL_URL environment variable is not set");
+}
+
+// Parse the URL to get connection details
+$url = parse_url($mysql_url);
+$servername = $url['host'];
+$username = $url['user'];
+$password = $url['pass'];
+$dbname = ltrim($url['path'], '/');
+$port = $url['port'] ?? 3306;
+
+error_log("Host: " . $servername);
+error_log("Database: " . $dbname);
+error_log("Port: " . $port);
 
 // Add error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
-// Validate that we have all required connection details
-if (!$servername || !$username || !$password || !$dbname || !$port) {
-    die("Missing required database connection details. Please check environment variables." . 
-        "\nHost: $servername" .
-        "\nDatabase: $dbname" .
-        "\nPort: $port" .
-        "\nUser: $username");
-}
 
 try {
     // Create connection
@@ -37,5 +36,8 @@ try {
     // Start session
     session_start();
 } catch (Exception $e) {
-    die("Connection error: " . $e->getMessage() . " (Host: $servername, Database: $dbname, Port: $port)");
+    die("Connection error: " . $e->getMessage() . 
+        "\nHost: " . $servername . 
+        "\nDatabase: " . $dbname . 
+        "\nPort: " . $port);
 }
