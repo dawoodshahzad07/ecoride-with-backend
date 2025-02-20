@@ -3,7 +3,7 @@
 $servername = "localhost"; // Default, will be overridden by env var if set
 $username = "root";        // Default, will be overridden by env var if set
 $password = "";            // Default, will be overridden by env var if set
-$dbname = "ecoride_french"; // Default, will be overridden by env var if set
+$dbname = "ecoridebackend"; // Default, will be overridden by env var if set
 
 // Use environment variables if available (for Railway)
 $servername = $_ENV['MYSQL_HOST'] ?? $servername; // Use MYSQL_HOST env var or default 'localhost'
