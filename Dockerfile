@@ -1,23 +1,28 @@
 FROM php:8.2-apache
 
-# Install mysqli extension and required dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     libmariadb-dev \
-    && docker-php-ext-install mysqli
+    default-mysql-client
 
-# Optionally, install pdo_mysql if you use PDO for MySQL
-# RUN docker-php-ext-install pdo_mysql
+# Install PHP extensions
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
+# Configure Apache
+RUN a2enmod rewrite
+RUN service apache2 restart
+
+# Set working directory
 WORKDIR /var/www/html
+
+# Copy application files
 COPY . .
 
-# Make sure Apache can write to the session directory if you're using sessions
+# Set permissions
 RUN chown -R www-data:www-data /var/www/html
 
-# Enable Apache modules if needed
-RUN a2enmod rewrite
-
-CMD ["apache2-foreground"]
-
-# Expose port 80
+# Expose port
 EXPOSE 80
+
+# Start Apache
+CMD ["apache2-foreground"]
