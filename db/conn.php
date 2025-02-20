@@ -1,4 +1,10 @@
 <?php
+// Add at the top of the file for debugging
+error_log("Host: " . getenv('MYSQL_HOST'));
+error_log("Database: " . getenv('MYSQL_DATABASE'));
+error_log("Port: " . getenv('MYSQL_PORT'));
+// Don't log username/password for security
+
 // Database connection
 $servername = getenv('MYSQL_HOST') ?: 'localhost';
 $username = getenv('MYSQL_USER') ?: 'root';
