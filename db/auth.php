@@ -1,126 +1,62 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ecoride_french";
+// Add error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+// Database connection with Railway environment variables
+$servername = getenv('MYSQLHOST');  // Get the Railway internal host
+if (!$servername) {
+    error_log("MYSQLHOST not set, falling back to localhost");
+    $servername = 'localhost';
 }
 
-session_start();
-include_once('../config.php');
+$username = getenv('MYSQLUSER') ?: 'root';
+$password = getenv('MYSQLPASSWORD') ?: '';
+$dbname = getenv('MYSQLDATABASE') ?: 'ecoride_french';
+$port = getenv('MYSQLPORT') ?: '3306';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  if (isset($_POST['register'])) {
-    $name = trim($_POST['name']);
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-    $confirm_password = trim($_POST['confirm_password']);
-    $type = trim($_POST['type']);
-    $credit = registration_credit;
+try {
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname, (int)$port);
 
-    if (empty($name) || empty($email) || empty($password) || empty($type)) {
-      die("All fields are required.");
+    // Check connection
+    if (!$conn) {
+        throw new Exception("Connection failed: " . mysqli_connect_error());
     }
 
-    if ($password !== $confirm_password) {
-      die("Passwords do not match.");
-    }
+    // Get username and password from POST request
+    $user = $_POST['username'];
+    $pass = $_POST['password'];
 
-    if (isset($_FILES['profile']) && $_FILES['profile']['error'] === UPLOAD_ERR_OK) {
-      $upload_dir = '../profiles/';
-      $file_tmp = $_FILES['profile']['tmp_name'];
-      $file_name = basename($_FILES['profile']['name']);
-      $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
-      $allowed_ext = ['jpg', 'jpeg', 'png', 'gif'];
+    // Use prepared statement to prevent SQL injection
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+    $stmt->bind_param("ss", $user, $pass);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-      if (!in_array(strtolower($file_ext), $allowed_ext)) {
-        die("Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.");
-      }
-
-      $unique_name = uniqid("profile_", true) . '.' . $file_ext;
-      $file_path = $upload_dir . $unique_name;
-      if (!move_uploaded_file($file_tmp, $file_path)) {
-        die("Failed to upload the profile picture.");
-      }
+    if ($result->num_rows > 0) {
+        // Start session and store user data
+        session_start();
+        $user_data = $result->fetch_assoc();
+        $_SESSION['user_id'] = $user_data['id'];
+        $_SESSION['username'] = $user_data['username'];
+        
+        // Redirect to dashboard or home page
+        header("Location: ../index.php");
+        exit();
     } else {
-      $unique_name = null;
-    }
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-    $query = "INSERT INTO utilisateurs (nom, credit, email, mot_de_passe, type, photo) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = mysqli_prepare($conn, $query);
-
-    if ($stmt) {
-      mysqli_stmt_bind_param($stmt, "ssssss", $name, $credit, $email, $hashed_password, $type, $unique_name);
-
-      if (mysqli_stmt_execute($stmt)) {
-        header('Location: ../connexion.php');
-      } else {
-        echo "Error: " . mysqli_stmt_error($stmt);
-      }
-
-      mysqli_stmt_close($stmt);
-    } else {
-      echo "Error preparing the query: " . mysqli_error($conn);
-    }
-  } elseif (isset($_POST['login'])) {
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-
-    if (empty($email) || empty($password)) {
-      die("Email and password are required.");
+        // Invalid credentials
+        header("Location: ../login.php?error=1");
+        exit();
     }
 
-    $query = "SELECT id, nom, mot_de_passe, type FROM utilisateurs WHERE email = ?";
-    $stmt = mysqli_prepare($conn, $query);
-
-    if ($stmt) {
-      mysqli_stmt_bind_param($stmt, "s", $email);
-
-      mysqli_stmt_execute($stmt);
-      mysqli_stmt_bind_result($stmt, $id, $name, $hashed_password, $type);
-
-      if (mysqli_stmt_fetch($stmt)) {
-        if (password_verify($password, $hashed_password)) {
-          $_SESSION['user_id'] = $id;
-          $_SESSION['name'] = $name;
-          $_SESSION['type'] = $type;
-
-          $redirect_url = isset($_POST['previous_url']) ? $_POST['previous_url'] : '../index.php'; 
-
-
-          echo "Login successful! Redirecting...";
-          if ($type === 'customer') {
-            header("Location: $redirect_url");;
-          } elseif ($type === 'driver') {
-            header("Location: ../addCarpool.php");
-          } elseif ($type === 'admin') {
-            header("Location: ../carpools.php");
-          } elseif ($type === 'employee') {
-            header("Location: ../rating.php");
-          } else {
-            header("Location: ../index.php");
-          }
-          exit;
-        } else {
-          echo "Invalid email or password.";
-        }
-      } else {
-        echo "No account found with this email.";
-      }
-      mysqli_stmt_close($stmt);
-    } else {
-      echo "Error preparing the query: " . mysqli_error($conn);
-    }
-  }
-  mysqli_close($conn);
+} catch (Exception $e) {
+    die("Connection error: " . $e->getMessage() . 
+        "\nHost: " . $servername . 
+        "\nDatabase: " . $dbname . 
+        "\nPort: " . $port);
 }
 
-if (isset($_GET['logout'])) {
-  session_destroy();
-  header("Location: ../index.php");
-}
+// Close connection
+$conn->close();
+?>
